@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<title>代码合并成一行</title>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body ng-controller="myCtrl">
+    <textarea style="height: 300px;width: 500px" ng-model="model"></textarea> <br>
+    <h4>请将代码复制到上面的框框内</h4>
+    <textarea style="height: 300px;width: 500px" ng-model="model2"></textarea>
+<script src="../js/angular.min.js"></script>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+        $scope.model = '';
+        $scope.model2 = '';
+
+        $scope.$watch(function(){
+            var sub = '';
+            var arr = TransferString($scope.model);
+            console.log(JSON.stringify(arr));
+            console.log((arr.length));
+            console.log('========================================');
+            for(var i in arr){
+                console.log(arr[i].trim());
+                sub +=arr[i].trim();
+            }
+            $scope.model2 = sub;
+            console.log('========================================');
+        });
+
+
+    });
+    function TransferString(content)
+    {
+
+        return content.split('\n');
+//        try{
+//            string=string.replace(/\r\n/g,"")
+//            string=string.replace(/\n/g,"");
+//            string=string.replace(/ /g,"");
+//        }catch(e) {
+//            alert(e.message);
+//        }
+
+    }
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="../node_modules/clipboard/dist/clipboard.min.js"></script>
+</head>
+<body ng-controller="myCtrl">
+<textarea style="height: 300px;width: 500px" ng-model="model"></textarea><font>共{{len}}行</font>
+<button  ng-click="state=!state">翻转</button>
+<div><button class="btn" data-clipboard-target="#foo1">复制</button>去除空格换行：<span id="foo1">{{model1}}</span></div><hr>
+<div><button class="btn" data-clipboard-target="#foo2">复制</button>数组：<span  >{{model2}}</span></div><hr>
+<div><button class="btn" data-clipboard-target="#foo3">复制</button>数组：<span id="foo3">{{model3}}</span></div><hr>
+<div><button class="btn" data-clipboard-target="#foo4">复制</button>Json：<span id="foo4">{{model4}}</span></div><hr>
+<div><button class="btn" data-clipboard-target="#foo5">复制</button>Json翻转：<span id="foo5">{{model5}}</span></div><hr>
+<script src="../js/angular.min.js"></script>
+
+<script>
+    var clipboard = new Clipboard('.btn');
+
+    clipboard.on('success', function(e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        console.log("复制成功");
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+    });
+
+
+
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $scope.state = true;
+        $scope.model='';
+        $scope.len = '';
+        $scope.model1='';
+        $scope.model2='';
+        $scope.model3='';
+        $scope.model4='';
+        $scope.model5='';
+        $scope.$watch(function(){
+            $scope.change()
+        })
+        $scope.change = function(){
+            var str = TransferString($scope.model);
+            var arr = str.split(',');
+            if( !$scope.state){
+                arr = arr.reverse();
+            }
+            $scope.len = arr.length;
+            $scope.model1 = filter_center($scope.model);
+            $scope.model2 = '['+arr.join(',')+']';
+            $scope.model3 = '["'+arr.join('","')+'"]';
+            $scope.model4 = '["'+arr.join('":"","')+'":""]';
+            $scope.model5 = '["":"'+arr.join('","":"')+'"]';
+        }
+
+        $scope.change2 = function(){
+            var str = TransferString($scope.model);
+            var arr = str.split(',');
+            var arr2 = arr.reverse();
+            $scope.model2 = '['+str+']';
+            $scope.model3 = '["'+arr.join('","')+'"]';
+            $scope.model4 = '["'+arr.join('":"","')+'":""]';
+            $scope.model5 = '["":"'+arr.join('","":"')+'"]';
+        }
+    });
+
+    function TransferString(content)
+    {
+        var string = content;
+        try{
+            string=string.replace(/\r\n/g,",")
+            string=string.replace(/\n/g,",");
+        }catch(e) {
+            alert(e.message);
+        }
+        return string;
+    }
+    function filter_center(content){
+        var string = content;
+        string=string.replace(/\r\n/g,"")
+        string=string.replace(/\n/g,"");
+        return string;
+
+    }
+</script>
+
+
+
+</body>
+</html>

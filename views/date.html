@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>md5转换</title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body ng-controller="myCtrl">
+    <textarea style="height: 300px;width: 500px" ng-model="model"></textarea> <br>
+<br>
+    <textarea style="height: 300px;width: 500px" ng-model="model2"></textarea>
+<script src="../js/md5.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+        $scope.model = '';
+        $scope.model2 = '';
+        $scope.state= false;
+
+        $scope.$watch(function () {
+            if(!$scope.model ){
+                return;
+            }
+            var arr = $scope.model.split(/\n/g);
+
+            var arr2 = [];
+            for(var i=0;i<arr.length;i++){
+
+
+                var inn_arr = arr[i].split('/');
+
+                if(inn_arr.length==3){
+
+                    var year = inn_arr[0];
+                    var month = inn_arr[1];
+                    var day = inn_arr[2]
+
+                    if(month.length==1){
+                        month  = '0'+month
+                    }
+                    if(day.length==1){
+                        day  = '0'+day
+                    }
+                    console.log(year+'-'+month+'-'+day)
+
+                    arr2.push(year+'-'+month+'-'+day);
+
+
+                }else{
+                    arr2.push('');
+                }
+
+            }
+
+            $scope.model2 = arr2.join('\n')
+
+        })
+    });
+
+
+</script>
+
+
+</body>
+</html>

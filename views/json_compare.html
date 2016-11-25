@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            text-align: center;
+        }
+        textarea,input{
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body ng-controller="myCtrl">
+
+<div style="height: 350px;;overflow: hidden">
+    <textarea style="height: 300px;width: 500px" ng-model="json1"></textarea>
+    <textarea style="height: 300px;width: 500px" ng-model="json2"></textarea>
+</div>
+<div style=";border: 10px solid gainsboro;margin-top: 10px">
+    json1中有且和json2中不相等的数：{{json1_dif}}
+</div>
+<div style=";border: 10px solid gainsboro;margin-top: 10px">
+    json2中有且和json1中不相等的数：{{json2_dif}}
+</div>
+<script src="../js/angular.min.js"></script>
+
+<script>
+
+
+
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+        $scope.json1 = '';
+        $scope.json2 = '';
+
+        $scope.json1_dif = '';
+        $scope.json2_dif = '';
+
+        $scope.$watch(function(){
+            console.log()
+            var json1 = '';
+            var json2 = '';
+            if(!($scope.json1&&$scope.json2)){
+                return;
+            }
+            json1 = JSON.parse( $scope.json1);
+            json2 = JSON.parse( $scope.json2);
+            var sub1_arr1 = {};
+          for(var i in json1){
+                if(json1[i]!==json2[i]){
+                    sub1_arr1[i] = json1[i];
+                }
+          }
+
+
+            var sub1_arr2 = {};
+            for(var i in json2){
+                if(json2[i]!==json1[i]){
+                    sub1_arr2[i] = json2[i];
+                }
+            }
+
+            $scope.json1_dif = JSON.stringify(sub1_arr1)
+            $scope.json2_dif = JSON.stringify(sub1_arr2)
+        });
+    });
+
+
+</script>
+
+
+</body>
+</html>

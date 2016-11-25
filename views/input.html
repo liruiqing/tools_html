@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        div.sixDigitPassword {
+            width: 180px;
+            cursor: text;
+            background:#fff;
+            outline: none;
+            position: relative;
+            padding: 8px 0;
+            height: 14px;
+            border: 1px solid #cccccc;
+            border-radius: 2px;
+        }
+
+        div.sixDigitPassword i {
+            width: 29px;
+            float: left;
+            display: block;
+            padding: 4px 0;
+            height: 7px;
+            border-left: 1px solid #cccccc;
+        }
+        div.sixDigitPassword i.active {
+            background-image: url("https://t.alipayobjects.com/images/rmsweb/T1nYJhXalXXXXXXXXX.gif");
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+        .alieditContainer, .alieditContainer * {
+            vertical-align: bottom;
+        }
+
+        div.sixDigitPassword span {
+            width: 29px;
+            visibility: visible;
+            left: 0px;
+            position: absolute;
+            display: block;
+            left: 0px;
+            top: -1px;
+            height: 30px;
+            border: 1px solid rgba(82, 168, 236, .8);
+            border: 1px solid #00ffff\9;
+            border-radius: 2px;
+            visibility: hidden;
+            -webkit-box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.75), 0 0 8px rgba(82, 168, 236, 0.6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+        }
+        .alieditContainer, .alieditContainer * {
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+<body ng-controller="myCtrl">
+<span class="alieditContainer" id="payPassword_container">
+    <input type="password" tabindex="1" id="payPassword_rsainput"
+                                                                 name="payPassword_rsainput"
+                                                                 class="ui-input i-text sixDigitPassword"
+                                                                 oncontextmenu="return false" onpaste="return false"
+                                                                 oncopy="return false" oncut="return false"
+                                                                 autocomplete="off" value="" maxlength="6" minlength="6"
+                                                                 style="outline: none; ">
+    <div class="sixDigitPassword" tabindex="0" style="width: 180px;"><i class="active"
+                                                                       style="width: 29px; border-color: transparent;"><b
+        style="visibility: hidden;"></b></i><i style="width: 29px;" class=""><b style="visibility: hidden;"></b></i><i
+        style="width: 29px;" class=""><b style="visibility: hidden;"></b></i><i style="width: 29px;" class=""><b
+        style="visibility: hidden;"></b></i><i style="width: 29px;" class=""><b style="visibility: hidden;"></b></i><i
+        style="width: 29px;" class=""><b style="visibility: hidden;"></b></i>
+        <span style="width: 29px; visibility: visible; left: 0px;"></span>
+    </div>
+</span>
+<script src="../js/angular.min.js"></script>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+
+    });
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>md5转换</title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body ng-controller="myCtrl">
+    <textarea style="height: 300px;width: 500px" ng-model="model"></textarea> <br>
+    <input type="checkbox" ng-model="state">大写<br>
+    <textarea style="height: 300px;width: 500px" ng-model="model2"></textarea>
+<script src="../js/md5.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+        $scope.model = '';
+        $scope.model2 = '';
+        $scope.state= false;
+
+        $scope.$watch(function () {
+            if(!$scope.model ){
+                return;
+            }
+            if($scope.state){
+                $scope.model2 = md5($scope.model).toUpperCase();
+            }else{
+                $scope.model2 = md5($scope.model);
+            }
+
+        })
+    });
+
+
+</script>
+
+
+</body>
+</html>

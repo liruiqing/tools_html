@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+</head>
+<body ng-controller="myCtrl">
+    <textarea style="height: 300px;width: 500px" ng-model="model"></textarea> <br>
+    <textarea style="height: 300px;width: 500px" ng-model="model2"></textarea>
+    <textarea style="height: 300px;width: 500px" ng-model="model3"></textarea>
+
+<script src="../js/angular.min.js"></script>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+        $scope.model = 'aBc';
+        $scope.model2 = '';
+        $scope.model3 = '';
+
+        $scope.$watch(function(){
+            $scope.model2 = $scope.model.toLocaleLowerCase();
+            $scope.model3 = $scope.model.toLocaleUpperCase();
+        });
+    });
+
+
+</script>
+
+
+</body>
+</html>

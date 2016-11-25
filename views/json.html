@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            text-align: center;
+        }
+        textarea,input{
+            border: 1px solid;
+        }input{
+
+                 }
+    </style>
+</head>
+<body ng-controller="myCtrl">
+<textarea style="height: 300px;width: 500px" ng-model="json"></textarea> <br>
+<input type="text" ng-model="search"> <br><br>
+<textarea style="height: 100px;width: 500px" ng-model="result"></textarea>
+
+<script src="../js/angular.min.js"></script>
+
+<script>
+
+
+
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+        $scope.json = '';
+        $scope.search = '';
+        $scope.result = '';
+
+        $scope.$watch(function(){
+            var arr = [];
+            if($scope.json && $scope.search){
+                getIndex(JSON.parse( $scope.json),'json')
+            }
+            $scope.result = arr.join('\n');
+
+
+            function getIndex(json,dir){
+                for(var i in json ){
+                    if(typeof json[i]=='object'){
+                        getIndex(json[i],dir+'["'+i+'"]');
+                    }else if($scope.search==json[i]){
+                        arr.push(dir+'["'+i+'"]');
+                    }
+                }
+            }
+
+        });
+    });
+
+
+</script>
+
+
+</body>
+</html>
